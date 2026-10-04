@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Administrador | Nuevo Imperio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+ 
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <h1>Nuevo Imperio <span>Administrador</span></h1>
+
+      <a href="index.html" class="volver">
+        ← Volver al sitio
+      </a>
+    </div>
+  </header>
+
+  <main class="admin-container">
+    <section class="admin-card" id="loginPanel">
+  <h2>Iniciar sesión</h2>
+
+  <form id="formLogin">
+    <div class="form-grid">
+
+      <div class="campo">
+        <label for="loginEmail">Email</label>
+        <input
+          type="email"
+          id="loginEmail"
+          required
+        >
+      </div>
+
+      <div class="campo">
+        <label for="loginPassword">Contraseña</label>
+        <input
+          type="password"
+          id="loginPassword"
+          required
+        >
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn-guardar">
+      INGRESAR
+    </button>
+
+    <p id="loginMensaje" style="margin-top:15px;"></p>
+  </form>
+</section>
+  
+
+    <section class="admin-card" id="panelProyecto" style="display:none;">
+
+      <h2>Agregar nuevo proyecto</h2>
+
+      <form id="formProyecto">
+
+        <div class="form-grid">
+
+          <div class="campo">
+            <label for="titulo">Título</label>
+            <input
+              type="text"
+              id="titulo"
+              required
+            >
+          </div>
+
+          <div class="campo">
+            <label for="categoria">Categoría</label>
+
+            <select id="categoria" required>
+              <option value="">Seleccionar...</option>
+              <option value="Viviendas">Viviendas</option>
+              <option value="Construcción en seco">Construcción en seco</option>
+              <option value="Arquitectura modular">Arquitectura modular</option>
+            </select>
+          </div>
+
+          <div class="campo campo-completo">
+            <label for="descripcion">Descripción</label>
+
+            <textarea
+              id="descripcion"
+              placeholder="Breve descripción del proyecto..."
+            ></textarea>
+          </div>
+
+          <div class="campo campo-completo">
+            <label for="imagen">Imagen del proyecto</label>
+
+            <input
+              type="file"
+              id="imagen"
+              accept="image/*"
+              required
+            >
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn-guardar">
+          GUARDAR PROYECTO
+        </button>
+
+      </form>
+
+    </section>
+
+
+   <section class="admin-card" id="panelLista" style="display:none;">
+
+      <h2>Proyectos cargados</h2>
+
+      <div id="listaProyectos">
+        <p class="proyectos-vacio">
+          Cargando proyectos...
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>
