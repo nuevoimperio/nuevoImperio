@@ -27,8 +27,10 @@
         <li><a class="active" href="#inicio">INICIO</a></li>
         <li><a href="#nosotros">NOSOTROS</a></li>
         <li><a href="#servicios">SERVICIOS</a></li>
-        <li><a href="#trabajos">TRABAJOS</a></li>
-        <li><a href="#contacto">CONTACTO</a></li>
+       <li><a href="#trabajos">TRABAJOS</a></li>
+      <li><a href="#ofertas">OFERTAS</a></li>
+      <li><a href="#novedades">NOVEDADES</a></li>
+      <li><a href="#contacto">CONTACTO</a></li> 
       </ul>
 
       <a class="header-cta" href="https://wa.me/542241493976" target="_blank" rel="noopener">
@@ -128,6 +130,33 @@
 </section>
 
     <div id="nosotros"></div>
+    <!-- OFERTAS -->
+<section class="projects" id="ofertas">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">OPORTUNIDADES</span>
+        <h2>Ofertas <span>especiales</span></h2>
+      </div>
+    </div>
+
+    <div class="projects-grid" id="ofertasGrid"></div>
+  </div>
+</section>
+
+<!-- NOVEDADES -->
+<section class="projects" id="novedades">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">ACTUALIDAD</span>
+        <h2>Últimas <span>novedades</span></h2>
+      </div>
+    </div>
+
+    <div class="projects-grid" id="novedadesGrid"></div>
+  </div>
+</section>
    
 <section class="contact-section" id="contacto">
   <div class="container">
@@ -212,9 +241,23 @@
 
   </main>
 
- 
+ <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/nuevo-imperio.js"></script>
+<footer class="footer-principal">
+  <p>© 2026 Nuevo Imperio. Todos los derechos reservados.</p>
+
+  <p class="footer-creditos">
+    Creado por <strong>Pixora</strong>
+  </p>
+
+  <a href="admin.html" class="acceso-admin">
+    Administración
+  </a>
+</footer>
 
 </body>
 </html>

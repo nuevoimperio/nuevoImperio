@@ -56,3 +56,107 @@ if (menuBtn && navLinks) {
     });
   });
 }
+async function cargarOfertas() {
+  const contenedor = document.getElementById("ofertasGrid");
+  if (!contenedor) return;
+
+  const { data, error } = await supabaseClient
+    .from("ofertas")
+    .select("*")
+    .eq("visible", true)
+    .order("creado_en", { ascending: false });
+
+  if (error) {
+    console.error("Error al cargar ofertas:", error);
+    return;
+  }
+
+  contenedor.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    contenedor.textContent = "Próximamente nuevas ofertas.";
+    return;
+  }
+
+  data.forEach(oferta => {
+    const tarjeta = document.createElement("article");
+    tarjeta.className = "project-card";
+
+    if (oferta.imagen) {
+      const imagen = document.createElement("img");
+      imagen.src = oferta.imagen;
+      imagen.alt = oferta.titulo;
+      tarjeta.appendChild(imagen);
+    }
+
+    const contenido = document.createElement("div");
+    contenido.className = "project-overlay";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = oferta.titulo;
+    contenido.appendChild(titulo);
+
+    if (oferta.descripcion) {
+      const descripcion = document.createElement("p");
+      descripcion.textContent = oferta.descripcion;
+      contenido.appendChild(descripcion);
+    }
+
+    tarjeta.appendChild(contenido);
+    contenedor.appendChild(tarjeta);
+  });
+}
+
+cargarOfertas();
+async function cargarNovedades() {
+  const contenedor = document.getElementById("novedadesGrid");
+  if (!contenedor) return;
+
+  const { data, error } = await supabaseClient
+    .from("novedades")
+    .select("*")
+    .eq("visible", true)
+    .order("creado_en", { ascending: false });
+
+  if (error) {
+    console.error("Error al cargar novedades:", error);
+    return;
+  }
+
+  contenedor.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    contenedor.textContent = "Próximamente nuevas novedades.";
+    return;
+  }
+
+  data.forEach(novedad => {
+    const tarjeta = document.createElement("article");
+    tarjeta.className = "project-card";
+
+    if (novedad.imagen) {
+      const imagen = document.createElement("img");
+      imagen.src = novedad.imagen;
+      imagen.alt = novedad.titulo;
+      tarjeta.appendChild(imagen);
+    }
+
+    const contenido = document.createElement("div");
+    contenido.className = "project-overlay";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = novedad.titulo;
+    contenido.appendChild(titulo);
+
+    if (novedad.contenido) {
+      const descripcion = document.createElement("p");
+      descripcion.textContent = novedad.contenido;
+      contenido.appendChild(descripcion);
+    }
+
+    tarjeta.appendChild(contenido);
+    contenedor.appendChild(tarjeta);
+  });
+}
+
+cargarNovedades();
