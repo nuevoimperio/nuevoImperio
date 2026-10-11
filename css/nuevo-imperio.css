@@ -469,3 +469,134 @@
   }
 
 }
+
+/* ===== SECCIÓN CONTACTO ===== */
+
+.contact-section {
+  padding: 100px 0;
+  background: #14191f;
+  color: #ffffff;
+}
+
+.contact-heading {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 55px;
+}
+
+.contact-eyebrow {
+  color: #aab4c0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.contact-heading h2 {
+  font-size: clamp(32px, 5vw, 48px);
+  margin: 0 0 20px;
+  font-weight: 800;
+}
+
+.contact-heading h2 span {
+  color: #aab4c0;
+}
+
+.contact-heading p {
+  color: #c0c8d1;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.contact-info,
+.contact-message {
+  padding: 40px;
+  border: 1px solid #39434d;
+  border-radius: 16px;
+  background: #202730;
+}
+
+.contact-info h3,
+.contact-message h3 {
+  font-size: 24px;
+  margin: 0 0 16px;
+}
+
+.contact-info > p,
+.contact-message > p {
+  color: #c0c8d1;
+  line-height: 1.7;
+}
+
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.contact-detail > span {
+  font-size: 24px;
+}
+
+.contact-detail strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.contact-detail p {
+  margin: 0;
+  color: #c0c8d1;
+}
+
+.contact-whatsapp {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  background: #25d366;
+  color: #102015;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.contact-whatsapp:hover {
+  background: #1fbd59;
+  transform: translateY(-2px);
+}
+
+.contact-slogan {
+  margin-top: 35px;
+  font-size: 20px;
+  font-weight: 700;
+  font-style: italic;
+  color: #ffffff !important;
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 65px 0;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info,
+  .contact-message {
+    padding: 28px 22px;
+  }
+
+  .contact-whatsapp {
+    display: block;
+    text-align: center;
+  }
+}
