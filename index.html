@@ -131,22 +131,7 @@
     <div id="contacto"></div>
   </main>
 
-  <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("navLinks");
-
-    menuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
-      menuBtn.textContent = navLinks.classList.contains("open") ? "×" : "☰";
-    });
-
-    navLinks.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuBtn.textContent = "☰";
-      });
-    });
-  </script>
+ 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/nuevo-imperio.js"></script>
 
