@@ -88,10 +88,14 @@ formLogin.addEventListener("submit", async (e) => {
     return;
   }
 
-  loginPanel.style.display = "none";
-  panelProyecto.style.display = "block";
-  panelLista.style.display = "block";
-  cargarListaProyectos();
+ loginPanel.style.display = "none";
+panelProyecto.style.display = "block";
+panelLista.style.display = "block";
+
+// Mostrar administración de ofertas
+document.getElementById("administrarOfertas").style.display = "block";
+
+cargarListaProyectos();
 
   console.log("Administrador conectado:", data.user.email);
 });
@@ -250,4 +254,52 @@ document.getElementById("formProyecto").scrollIntoView({
 });
 
 alert("Proyecto cargado para editar. Ya podés modificar sus datos.");
+});
+const formOferta = document.getElementById("formOferta");
+
+formOferta.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const titulo = document.getElementById("ofertaTitulo").value.trim();
+  const descripcion = document.getElementById("ofertaDescripcion").value.trim();
+  const imagen = document.getElementById("ofertaImagen").files[0];
+  const vencimiento = document.getElementById("ofertaVencimiento").value;
+
+  if (!titulo || !descripcion || !imagen || !vencimiento) {
+    alert("Completá todos los campos.");
+    return;
+  }
+
+  const nombreArchivo = `${crypto.randomUUID()}-${imagen.name}`;
+
+  const { error: errorImagen } = await supabaseAdmin.storage
+    .from("proyectos")
+    .upload(nombreArchivo, imagen);
+
+  if (errorImagen) {
+    alert("Error al subir la imagen: " + errorImagen.message);
+    return;
+  }
+
+  const { data: imagenPublica } = supabaseAdmin.storage
+    .from("proyectos")
+    .getPublicUrl(nombreArchivo);
+
+  const { error } = await supabaseAdmin
+    .from("ofertas")
+    .insert({
+      titulo,
+      descripcion,
+      imagen: imagenPublica.publicUrl,
+      fecha_vencimiento: vencimiento,
+      visible: true
+    });
+
+  if (error) {
+    alert("Error al publicar la oferta: " + error.message);
+    return;
+  }
+
+  alert("¡Oferta publicada correctamente!");
+  formOferta.reset();
 });

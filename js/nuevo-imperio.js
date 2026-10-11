@@ -29,10 +29,14 @@ async function cargarProyectos() {
       <article class="project-card">
         <img src="${proyecto.imagen}" alt="${proyecto.titulo}">
 
-        <div class="project-overlay">
-          <span>${proyecto.categoria}</span>
-          <h3>${proyecto.titulo}</h3>
-        </div>
+       <div class="project-overlay">
+  <span>${proyecto.categoria}</span>
+  <h3>${proyecto.titulo}</h3>
+
+  <p class="project-description">
+    ${proyecto.descripcion || ""}
+  </p>
+</div>
       </article>
     `;
   });

@@ -133,6 +133,44 @@
       </div>
 
     </section>
+  <section id="administrarOfertas" style="display: none;">
+  <h2>Administrar ofertas</h2>
+
+  <form id="formOferta">
+    <input
+      type="text"
+      id="ofertaTitulo"
+      placeholder="Título de la oferta"
+      required
+    >
+
+    <textarea
+      id="ofertaDescripcion"
+      placeholder="Descripción de la oferta"
+      required
+    ></textarea>
+
+    <label for="ofertaImagen">Fotografía de la oferta</label>
+    <input
+      type="file"
+      id="ofertaImagen"
+      accept="image/*"
+      required
+    >
+
+    <label for="ofertaVencimiento">Fecha de vencimiento</label>
+    <input
+      type="date"
+      id="ofertaVencimiento"
+      required
+    >
+
+    <button type="submit">Publicar oferta</button>
+  </form>
+
+  <h3>Ofertas publicadas</h3>
+  <div id="listaOfertas"></div>
+</section>
 
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
