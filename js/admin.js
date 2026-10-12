@@ -66,6 +66,7 @@ listaProyectos.innerHTML = data.map(proyecto => `
 }
 
 cargarListaProyectos();
+cargarListaOfertas();
 const formLogin = document.getElementById("formLogin");
 const loginPanel = document.getElementById("loginPanel");
 const panelProyecto = document.getElementById("panelProyecto");
@@ -94,6 +95,7 @@ panelLista.style.display = "block";
 
 // Mostrar administración de ofertas
 document.getElementById("administrarOfertas").style.display = "block";
+document.getElementById("administrarNovedades").style.display = "block";
 
 cargarListaProyectos();
 
@@ -264,6 +266,55 @@ formOferta.addEventListener("submit", async (e) => {
   const descripcion = document.getElementById("ofertaDescripcion").value.trim();
   const imagen = document.getElementById("ofertaImagen").files[0];
   const vencimiento = document.getElementById("ofertaVencimiento").value;
+  const idEditando = document.getElementById("ofertaEditando").value;
+
+if (idEditando) {
+  const cambios = {
+    titulo,
+    descripcion,
+    fecha_vencimiento: vencimiento
+  };
+
+  // Si se seleccionó otra fotografía, reemplazarla
+  if (imagen) {
+    const nombreArchivo = `${crypto.randomUUID()}-${imagen.name}`;
+
+    const { error: errorImagen } = await supabaseAdmin.storage
+      .from("proyectos")
+      .upload(nombreArchivo, imagen);
+
+    if (errorImagen) {
+      alert("Error al subir la imagen: " + errorImagen.message);
+      return;
+    }
+
+    const { data: imagenPublica } = supabaseAdmin.storage
+      .from("proyectos")
+      .getPublicUrl(nombreArchivo);
+
+    cambios.imagen = imagenPublica.publicUrl;
+  }
+
+  const { data: actualizada, error } = await supabaseAdmin
+    .from("ofertas")
+    .update(cambios)
+    .eq("id", idEditando)
+    .select("id");
+
+  if (error || !actualizada?.length) {
+    alert("No se pudo actualizar la oferta: " + (error?.message || "Sin permisos o registro inexistente"));
+    return;
+  }
+
+  alert("¡Oferta actualizada correctamente!");
+
+  formOferta.reset();
+  document.getElementById("ofertaEditando").value = "";
+  document.getElementById("btnGuardarOferta").textContent = "Publicar oferta";
+
+  cargarListaOfertas();
+  return;
+}
 
   if (!titulo || !descripcion || !imagen || !vencimiento) {
     alert("Completá todos los campos.");
@@ -302,4 +353,151 @@ formOferta.addEventListener("submit", async (e) => {
 
   alert("¡Oferta publicada correctamente!");
   formOferta.reset();
+  cargarListaOfertas();
+});
+async function cargarListaOfertas() {
+  const { data, error } = await supabaseAdmin
+    .from("ofertas")
+    .select("*")
+    .order("creado_en", { ascending: false });
+
+  if (error) {
+    console.error("Error al cargar ofertas:", error);
+    return;
+  }
+
+  const lista = document.getElementById("listaOfertas");
+
+  lista.innerHTML = data.length
+    ? data.map(oferta => `
+        <div class="proyecto-admin">
+          <img src="${oferta.imagen}" alt="${oferta.titulo}">
+          <div class="proyecto-admin-info">
+            <h3>${oferta.titulo}</h3>
+            <p>${oferta.descripcion || ""}</p>
+            <p><strong>Vence:</strong> ${oferta.fecha_vencimiento || "Sin fecha"}</p>
+            <div class="acciones-proyecto">
+  <button type="button" class="btn-editar-oferta" data-id="${oferta.id}">
+    ✏️ Editar
+  </button>
+
+  <button type="button" class="btn-eliminar-oferta" data-id="${oferta.id}">
+    🗑️ Eliminar
+  </button>
+</div>
+          </div>
+        </div>
+      `).join("")
+    : "<p>Todavía no hay ofertas publicadas.</p>";
+}
+document.getElementById("listaOfertas").addEventListener("click", async (e) => {
+  const boton = e.target.closest(".btn-eliminar-oferta");
+
+  if (!boton) return;
+
+  const id = boton.dataset.id;
+
+  if (!confirm("¿Seguro que querés eliminar esta oferta?")) {
+    return;
+  }
+
+  const { error } = await supabaseAdmin
+    .from("ofertas")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert("Error al eliminar la oferta: " + error.message);
+    return;
+  }
+
+  alert("Oferta eliminada correctamente.");
+  cargarListaOfertas();
+});
+document.getElementById("listaOfertas").addEventListener("click", async (e) => {
+  const boton = e.target.closest(".btn-editar-oferta");
+
+  if (!boton) return;
+
+  const id = boton.dataset.id;
+
+  const { data: oferta, error } = await supabaseAdmin
+    .from("ofertas")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    alert("Error al cargar la oferta: " + error.message);
+    return;
+  }
+
+  document.getElementById("ofertaEditando").value = oferta.id;
+  document.getElementById("ofertaTitulo").value = oferta.titulo;
+  document.getElementById("ofertaDescripcion").value = oferta.descripcion || "";
+  document.getElementById("ofertaVencimiento").value = oferta.fecha_vencimiento || "";
+
+  document.getElementById("btnGuardarOferta").textContent = "Guardar cambios";
+
+  document.getElementById("formOferta").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+});
+const formNovedad = document.getElementById("formNovedad");
+
+formNovedad.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const titulo = document.getElementById("novedadTitulo").value.trim();
+  const contenido = document.getElementById("novedadContenido").value.trim();
+  const imagen = document.getElementById("novedadImagen").files[0];
+
+  if (!titulo || !contenido) {
+    alert("Completá el título y el contenido.");
+    return;
+  }
+
+  const boton = document.getElementById("btnGuardarNovedad");
+  boton.disabled = true;
+
+  try {
+    let urlImagen = null;
+
+    // La fotografía es opcional
+    if (imagen) {
+      const nombreArchivo = `${crypto.randomUUID()}-${imagen.name}`;
+
+      const { error: errorImagen } = await supabaseAdmin.storage
+        .from("proyectos")
+        .upload(nombreArchivo, imagen);
+
+      if (errorImagen) throw errorImagen;
+
+      const { data } = supabaseAdmin.storage
+        .from("proyectos")
+        .getPublicUrl(nombreArchivo);
+
+      urlImagen = data.publicUrl;
+    }
+
+    const { error } = await supabaseAdmin
+      .from("novedades")
+      .insert({
+        titulo,
+        contenido,
+        imagen: urlImagen,
+        visible: true
+      });
+
+    if (error) throw error;
+
+    alert("¡Novedad publicada correctamente!");
+    formNovedad.reset();
+
+  } catch (error) {
+    alert("Error al publicar la novedad: " + error.message);
+  } finally {
+    boton.disabled = false;
+  }
 });

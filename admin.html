@@ -137,6 +137,7 @@
   <h2>Administrar ofertas</h2>
 
   <form id="formOferta">
+    <input type="hidden" id="ofertaEditando" value="">
     <input
       type="text"
       id="ofertaTitulo"
@@ -155,7 +156,7 @@
       type="file"
       id="ofertaImagen"
       accept="image/*"
-      required
+     
     >
 
     <label for="ofertaVencimiento">Fecha de vencimiento</label>
@@ -165,11 +166,48 @@
       required
     >
 
-    <button type="submit">Publicar oferta</button>
+   <button type="submit" id="btnGuardarOferta">
+  Publicar oferta
+</button>
   </form>
 
   <h3>Ofertas publicadas</h3>
   <div id="listaOfertas"></div>
+</section>
+<section id="administrarNovedades" style="display: none;">
+  <h2>Administrar novedades</h2>
+
+  <form id="formNovedad">
+    <input type="hidden" id="novedadEditando" value="">
+
+    <input
+      type="text"
+      id="novedadTitulo"
+      placeholder="Título de la novedad"
+      required
+    >
+
+    <textarea
+      id="novedadContenido"
+      placeholder="Escribí el contenido de la novedad..."
+      rows="10"
+      required
+    ></textarea>
+
+    <label for="novedadImagen">Imagen (opcional)</label>
+    <input
+      type="file"
+      id="novedadImagen"
+      accept="image/*"
+    >
+
+    <button type="submit" id="btnGuardarNovedad">
+      Publicar novedad
+    </button>
+  </form>
+
+  <h3>Novedades publicadas</h3>
+  <div id="listaNovedades"></div>
 </section>
 
   </main>

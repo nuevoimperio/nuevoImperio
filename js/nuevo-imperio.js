@@ -136,29 +136,55 @@ async function cargarNovedades() {
 
   data.forEach(novedad => {
     const tarjeta = document.createElement("article");
-    tarjeta.className = "project-card";
+    tarjeta.className = "novedad-card";
 
     if (novedad.imagen) {
       const imagen = document.createElement("img");
       imagen.src = novedad.imagen;
       imagen.alt = novedad.titulo;
+      imagen.className = "novedad-imagen";
       tarjeta.appendChild(imagen);
     }
 
-    const contenido = document.createElement("div");
-    contenido.className = "project-overlay";
+    const cuerpo = document.createElement("div");
+    cuerpo.className = "novedad-cuerpo";
+
+    const fecha = document.createElement("span");
+    fecha.className = "novedad-fecha";
+    fecha.textContent = new Date(novedad.creado_en).toLocaleDateString(
+      "es-AR",
+      { day: "numeric", month: "long", year: "numeric" }
+    );
+    cuerpo.appendChild(fecha);
 
     const titulo = document.createElement("h3");
     titulo.textContent = novedad.titulo;
-    contenido.appendChild(titulo);
+    cuerpo.appendChild(titulo);
 
-    if (novedad.contenido) {
-      const descripcion = document.createElement("p");
-      descripcion.textContent = novedad.contenido;
-      contenido.appendChild(descripcion);
+    const descripcion = document.createElement("p");
+    descripcion.className = "novedad-texto";
+    descripcion.textContent = novedad.contenido || "";
+    cuerpo.appendChild(descripcion);
+
+    if ((novedad.contenido || "").length > 220) {
+      descripcion.classList.add("resumido");
+
+      const boton = document.createElement("button");
+      boton.className = "novedad-leer-mas";
+      boton.type = "button";
+      boton.textContent = "Leer más →";
+      boton.setAttribute("aria-expanded", "false");
+
+      boton.addEventListener("click", () => {
+        const expandido = descripcion.classList.toggle("expandido");
+        boton.textContent = expandido ? "Leer menos ↑" : "Leer más →";
+        boton.setAttribute("aria-expanded", String(expandido));
+      });
+
+      cuerpo.appendChild(boton);
     }
 
-    tarjeta.appendChild(contenido);
+    tarjeta.appendChild(cuerpo);
     contenedor.appendChild(tarjeta);
   });
 }
