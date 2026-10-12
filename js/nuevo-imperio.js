@@ -23,10 +23,33 @@ async function cargarProyectos() {
   const contenedor = document.getElementById("projectsGrid");
 
   contenedor.innerHTML = "";
+  // Filtrar proyectos por categoría
+const botonesFiltro = document.querySelectorAll(".project-filters .filter");
+
+botonesFiltro.forEach(boton => {
+  boton.addEventListener("click", () => {
+    // Marcar el botón seleccionado
+    botonesFiltro.forEach(b => b.classList.remove("active"));
+    boton.classList.add("active");
+
+    const categoriaSeleccionada = boton.textContent.trim();
+
+    // Mostrar u ocultar fotografías
+    document.querySelectorAll("#projectsGrid .project-card").forEach(tarjeta => {
+      const categoriaProyecto = tarjeta.dataset.categoria;
+
+      tarjeta.style.display =
+        categoriaSeleccionada === "Todos" ||
+        categoriaProyecto === categoriaSeleccionada
+          ? ""
+          : "none";
+    });
+  });
+});
 
   data.forEach(proyecto => {
     contenedor.innerHTML += `
-      <article class="project-card">
+     <article class="project-card" data-categoria="${proyecto.categoria}">
         <img src="${proyecto.imagen}" alt="${proyecto.titulo}">
 
        <div class="project-overlay">
@@ -190,3 +213,25 @@ async function cargarNovedades() {
 }
 
 cargarNovedades();
+// Cargar presentación de Nosotros desde Supabase
+async function cargarNosotros() {
+  const elemento = document.getElementById("nosotrosTexto");
+
+  if (!elemento) return;
+
+  const { data, error } = await supabaseClient
+    .from("contenido_nosotros")
+    .select("texto")
+    .eq("id", 1)
+    .single();
+
+  if (error) {
+    console.error("Error al cargar Nosotros:", error);
+    return;
+  }
+
+  elemento.textContent = data.texto;
+}
+
+// Mostrar la presentación al cargar la página
+cargarNosotros();

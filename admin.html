@@ -209,6 +209,26 @@
   <h3>Novedades publicadas</h3>
   <div id="listaNovedades"></div>
 </section>
+<section id="administrarNosotros" style="display: none;">
+  <h2>Administrar Nosotros</h2>
+
+  <form id="formNosotros">
+    <label for="nosotrosEditor">
+      Presentación de la empresa
+    </label>
+
+    <textarea
+      id="nosotrosEditor"
+      rows="10"
+      placeholder="Escribí la presentación de Nuevo Imperio..."
+      required
+    ></textarea>
+
+    <button type="submit" id="btnGuardarNosotros">
+      Guardar presentación
+    </button>
+  </form>
+</section>
 
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

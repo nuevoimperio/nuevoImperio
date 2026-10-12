@@ -271,4 +271,55 @@
 #formOferta button[type="submit"]:active {
   transform: scale(0.97);
 }
+/* BOTONES DE NOVEDADES */
+
+/* Publicar y guardar cambios */
+#formNovedad button[type="submit"] {
+  background: #f5ad16;
+  color: #171717;
+  border: none;
+  padding: 13px 25px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#formNovedad button[type="submit"]:hover {
+  background: #ffc247;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(245, 173, 22, 0.25);
+}
+
+/* Editar novedad */
+.btn-editar-novedad {
+  background: #283746;
+  color: #ffffff;
+  border: 1px solid #49627a;
+}
+
+.btn-editar-novedad:hover {
+  background: #39536c;
+  transform: translateY(-2px);
+}
+
+/* Eliminar novedad */
+.btn-eliminar-novedad {
+  background: #46282b;
+  color: #ffb8b8;
+  border: 1px solid #84454a;
+}
+
+.btn-eliminar-novedad:hover {
+  background: #663338;
+  transform: translateY(-2px);
+}
+
+/* Efecto al pulsar */
+#formNovedad button[type="submit"]:active,
+.btn-editar-novedad:active,
+.btn-eliminar-novedad:active {
+  transform: scale(0.97);
+}
     
