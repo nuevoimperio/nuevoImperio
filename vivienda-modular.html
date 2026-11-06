@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Descubrí los desarrollos de arquitectura modular de Nuevo Imperio en General Belgrano, Buenos Aires.">
+  <title>Viviendas Modulares | Nuevo Imperio</title>
+  <link rel="icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/nuevo-imperio.css">
+  <style>
+    html{scroll-padding-top:110px}body{margin:0}
+    .modular-main{padding:185px 0 90px;min-height:75vh;position:relative;clear:both}
+    .modular-head{max-width:850px;margin-bottom:42px;position:relative;z-index:1}
+    .modular-eyebrow{font-size:.78rem;letter-spacing:.17em;font-weight:800;text-transform:uppercase;color:#b38d56}
+    .modular-head h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.14;margin:14px 0;color:#11243a}
+    .modular-head p{line-height:1.8;max-width:760px}
+    .modular-back{display:inline-block;margin:0 0 26px;color:#11243a;text-decoration:none;font-weight:700}
+    .modular-back:hover{text-decoration:underline}
+    .modular-grid{display:grid;grid-template-columns:1fr;gap:40px}
+    .modular-card{background:#fff;border:1px solid #e4e6e9;border-radius:18px;overflow:hidden;box-shadow:0 14px 40px #14213213;color:#172536}
+    .modular-cover{width:100%;height:clamp(270px,42vw,510px);object-fit:cover;display:block;cursor:zoom-in;background:#e9e9e9}
+    .modular-content{padding:clamp(22px,4vw,42px)}
+    .modular-content h2{font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 10px;color:#12243a}
+    .modular-description{line-height:1.75;white-space:pre-line;color:#455468;margin:0 0 26px}
+    .modular-section-title{font-size:1rem;text-transform:uppercase;letter-spacing:.09em;color:#9a733e;margin:26px 0 15px}
+    .modular-specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .modular-spec{padding:16px 18px;border-radius:10px;background:#f5f6f8;min-width:0}
+    .modular-spec strong{display:block;font-size:.78rem;color:#647083;margin-bottom:7px}
+    .modular-spec span{display:block;white-space:pre-line;overflow-wrap:anywhere;line-height:1.55;font-weight:600}
+    .modular-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:13px;margin:16px 0 26px}
+    .modular-photo{display:block;text-align:left;padding:0;border:0;background:#f5f6f8;border-radius:10px;overflow:hidden;cursor:zoom-in;color:#172536;font:inherit}
+    .modular-photo img{width:100%;height:140px;object-fit:cover;display:block;transition:transform .2s}
+    .modular-photo:hover img{transform:scale(1.04)}
+    .modular-photo span{display:block;font-size:.78rem;padding:8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .modular-whatsapp{display:inline-block;background:#d4a34c;color:#141a22;text-decoration:none;font-weight:800;border-radius:9px;padding:15px 23px;margin-top:8px}
+    .modular-whatsapp:hover{background:#e5b65e}
+    .modular-status{padding:25px;border:1px solid #8885;border-radius:12px}
+    .modular-footer{text-align:center;padding:30px 14px}
+    .modular-lightbox[hidden]{display:none!important}
+    .modular-lightbox{position:fixed;inset:0;z-index:99999;background:rgba(8,12,18,.96);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:55px 62px 50px}
+    .modular-lightbox img{max-width:100%;max-height:calc(100vh - 145px);object-fit:contain}
+    .modular-lightbox button{position:absolute;background:#fff2;color:#fff;border:1px solid #fff5;border-radius:50%;width:43px;height:43px;font-size:27px;cursor:pointer}
+    .modular-lightbox .lb-close{top:15px;right:18px}.modular-lightbox .lb-prev{left:12px;top:50%}.modular-lightbox .lb-next{right:12px;top:50%}
+    .modular-lightbox figcaption{color:#fff;margin-top:13px;text-align:center;max-width:85vw;overflow-wrap:anywhere}
+    @media(max-width:700px){.modular-main{padding-top:160px}.modular-specs{grid-template-columns:1fr}.modular-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.modular-photo img{height:110px}.modular-lightbox{padding:65px 46px}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html#inicio" aria-label="Nuevo Imperio - Inicio"><img src="images/log01.png" alt="Nuevo Imperio"></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#inicio">INICIO</a></li>
+        <li><a href="index.html#nosotros">NOSOTROS</a></li>
+        <li><a href="index.html#trabajos">TRABAJOS</a></li>
+        <li><a href="index.html#contacto">CONTACTO</a></li>
+      </ul>
+      <a class="header-cta" href="https://wa.me/5492241493976" target="_blank" rel="noopener">CONSULTAR</a>
+    </div>
+  </header>
+  <main class="modular-main">
+    <div class="container">
+      <a class="modular-back" href="index.html#servicios">← Volver a Nuevo Imperio</a>
+      <div class="modular-head">
+        <span class="modular-eyebrow">NUEVO IMPERIO · STEEL FRAME</span>
+        <h1>Viviendas modulares</h1>
+        <p>Conocé nuestros desarrollos de arquitectura modular. Diseñamos soluciones modernas y adaptables a cada proyecto.</p>
+      </div>
+      <div id="modularEstado" class="modular-status" role="status">Cargando desarrollos...</div>
+      <div id="modularGrid" class="modular-grid" aria-live="polite"></div>
+    </div>
+  </main>
+  <div class="modular-lightbox" id="modularLightbox" role="dialog" aria-modal="true" aria-label="Galería de imágenes" hidden>
+    <button type="button" class="lb-close" id="lbClose" aria-label="Cerrar">×</button>
+    <button type="button" class="lb-prev" id="lbPrev" aria-label="Anterior">‹</button>
+    <img id="lbImage" alt="Imagen ampliada">
+    <figcaption id="lbCaption"></figcaption>
+    <button type="button" class="lb-next" id="lbNext" aria-label="Siguiente">›</button>
+  </div>
+  <footer class="modular-footer">© 2026 Nuevo Imperio. Todos los derechos reservados.</footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/vivienda-modular.js"></script>
+</body>
+</html>

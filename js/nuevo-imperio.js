@@ -235,3 +235,55 @@ async function cargarNosotros() {
 
 // Mostrar la presentación al cargar la página
 cargarNosotros();
+
+/* MÓDULO HABITACIONAL - TARJETA CLICKEABLE */
+
+function activarEnlaceModulo() {
+  const tarjetas = document.querySelectorAll(
+    "#projectsGrid .project-card"
+  );
+
+  tarjetas.forEach(tarjeta => {
+    const titulo = tarjeta.querySelector("h3");
+
+    if (!titulo) return;
+
+    if (
+      titulo.textContent.trim().toLowerCase() ===
+      "modulo habitacional"
+    ) {
+      tarjeta.style.cursor = "pointer";
+      tarjeta.setAttribute("role", "link");
+      tarjeta.setAttribute("tabindex", "0");
+
+      const abrirFicha = () => {
+        window.location.href =
+          "vivienda-modular.html?id=bfe512b1-c9a9-417b-a970-37065bb7988d";
+      };
+
+      tarjeta.addEventListener("click", abrirFicha);
+
+      tarjeta.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          abrirFicha();
+        }
+      });
+    }
+  });
+}
+
+// Esperar a que Supabase cargue las tarjetas
+const observadorModulos = new MutationObserver(() => {
+  activarEnlaceModulo();
+});
+
+const grillaModulos = document.getElementById("projectsGrid");
+
+if (grillaModulos) {
+  observadorModulos.observe(grillaModulos, {
+    childList: true
+  });
+
+  activarEnlaceModulo();
+}
